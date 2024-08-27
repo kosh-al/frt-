@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+
+          
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            z-index: 0;
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, rgb(0, 0, 0), #7007f0e8); 
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #content {
+            position: relative;
+            z-index: 1;
+        }
+        #success-message {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-white flex items-center justify-center h-screen">
+    <div id="overlay"></div> <!-- Purple overlay -->
+    <div id="content" class="text-center space-y-8">
+        <div class="flex justify-center items-center space-x-2">
+            <img src="Ma.png" alt="Logo" class="h-8 w-8">
+            <span class="text-2xl font-bold">Build Your Notes</span>
+        </div>
+        <h1 class="text-4xl font-bold">Our website is <span class="font-extrabold text-white">coming soon</span></h1>
+        
+        <div id="form-container" class="space-y-4">
+            <div class="flex justify-center">
+                <input id="email-input" type="email" placeholder="Email Address" class="bg-white text-black p-3 rounded-l-lg focus:outline-none">
+                <button id="subscribe-button" class="bg-purple-600 hover:bg-purple-700 text-white p-3 shadow-lg rounded-r-lg font-bold">Subscribe</button>
+            </div>
+            <p>Subscribe to get the latest update about our product.</p>
+        </div>
+
+        <div id="success-message" class="space-y-4">
+            <h2 class="text-2xl font-bold">Registration Successful!</h2>
+            <p>Thank you for subscribing. We will keep you updated.</p>
+        </div>
+
+       
+    </div>
+
+    <script>
+        document.getElementById('subscribe-button').addEventListener('click', function() {
+            var email = document.getElementById('email-input').value;
+
+            if(email) {
+                fetch('/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'Registration Successful!') {
+                        document.getElementById('form-container').style.display = 'none';
+                        document.getElementById('success-message').style.display = 'block';
+                    } else {
+                        alert(data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                alert("Please enter a valid email address.");
+            }
+        });
+    </script>
+</body>
+</html>

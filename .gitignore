@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+
+# Directory for instrumented libs
+lib-cov
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment files
+.env
